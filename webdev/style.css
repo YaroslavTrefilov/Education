@@ -23,6 +23,10 @@ h1 {
     line-height: 75px;
     letter-spacing: 4.5px;
     text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    padding-left: 18px;
+    margin-right: -6px;
 }
 h2 {
     color: #373737;
@@ -31,6 +35,8 @@ h2 {
     line-height: 28px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    padding: 0;
+    margin: 0;
 }
 h3 {
     color: #373737;
@@ -38,8 +44,11 @@ h3 {
     font-size: 16px;
     line-height: 20px;
     letter-spacing: 2.4px;
+    padding: 0;
+    margin: 0;
+    
 }
-ul, li {
+ul, li, p, button, img  {
     list-style-type: none;
     text-decoration: none;
     padding: 0;
@@ -88,18 +97,20 @@ header {
     
 }
 .nav-menu__item {
-    padding-top: 42px;
+    padding-top: 38px;
 }
 .nav-menu__logo{
     padding-top: 25px;
+    padding-right: 10px;
 }
 .nav-menu li + li:not(.logo__link) {
     padding-left: 85px;
 }
 .logo__link {
-    padding: 0 100px;
+    padding: 0 12px;
 }
 .nav-menu__link {
+    /* padding-bottom: 2px; */
     opacity: 0.8;
 }
 .nav-menu__link:hover {
@@ -118,19 +129,28 @@ header {
 }
 .your-life__title {
     margin-top: 136px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 75px;
+    letter-spacing: 4.5px;
+    text-transform: uppercase;
+    padding-left: 0px;
 }
 .your-life__text {
-    margin-top: 35px;
+    margin-top: 23px;
     font-size: 18px;
+    line-height: 140%;
 }
-.your-life__btn, .rappresent-btn, .implement-btn {
-    top: 30px;
+.your-life__btn {
     position: relative;
+    top: 42px;
 }
 .your-life__smm-items {
     display: flex;
     justify-content: center;
-    margin-top: 183px;
+    margin-top: 238px;
 }
 .your-life__smm-items li + li {
     padding-left: 30px;
@@ -144,6 +164,9 @@ header {
     justify-content: space-evenly;
     color: #4E4E4E;
 }
+.rappresent-left {
+    margin: 2px 0px 0px 14px;
+}
 .rappresent-info {
     padding-top: 294px;
     max-width: 407px;
@@ -154,9 +177,20 @@ header {
     padding-top: 120px;
     width: 407px;
     height: 582px;
+    position: relative;
+    right: 5px;
 }
 .rappresent-info__text {
-    margin-top: 20px;
+    margin-top: 21px;
+    line-height: 143%;
+
+}
+.rappresent-right {
+    padding-right: 10px;
+}
+.rappresent-btn{
+    top: 44px;
+    position: relative;
 }
 /* our community */
 
@@ -164,39 +198,48 @@ header {
     height: 504px;
     display: flex;
     background-color: #F5F6F7;
+    overflow: hidden;
 }
 .our-community__user {
     text-align: center;
     min-width: 298px;
     height: 175px;
-        /* TODO выровнять пиксель перфектом или поставить отсутп справа 139 пикселей
-         и ширину (не мин-ширину) */
-    padding: 155px 60px 174px 269px;
+    padding: 155px 0px 0px 271px;
 }
 .our-community__user-img {
     width: 45px;
     height: 45px;
 }
 .our-community__user-title {
-    padding: 20px 0px 10px;
+    padding-top: 16px;
 }
+.our-community__text-box {
+    max-width: 298px;
+}
+.our-community__user-text {
+    padding: 10px 2px 0px 0px;
+    line-height: 143%;
+}
+.our-community__slider {
+    margin: -4px 0px 0px 137px;
 
+}
 .our-community__slider-switch {
     display: flex;
     font-size: 18px;
     line-height: 140%;
 
-    padding: 80px 0px 20px;
-    padding-left: 546px;
+    padding: 82px 0px 20px 544px;
 }
 .slider-counter {
     display: flex;
-    padding: 0px 10px;
+    padding: 0px 6px;
     color: #373737;
 }
 .slider-counter li {
     color: #373737;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
+    padding-left: 3px;
 }
 .slider-arrow {
     cursor: pointer;
@@ -208,11 +251,9 @@ header {
 .our-community__slider-items li + li {
     padding-left: 30px;
 }
-
-.slider-item__off {
-    display: none;
-} 
-
+.slider-item {
+    margin-top: -2px;
+}
 /* implement */
 .implement {
     display: flex;
@@ -235,8 +276,12 @@ header {
 }
 .implement-rigth__text {
     padding-top: 20px;
+    line-height: 143%;
 }
-
+.implement-btn {
+    position: relative;
+    top: 44px;
+}
 /* subscribe */
 
 .subscribe {
@@ -289,6 +334,7 @@ header {
 .download {
     height: 468px;
     text-align: center;
+    background-color: #F5F6F7;
 }
 .download-title {
     padding-top: 120px;
@@ -304,6 +350,7 @@ header {
     margin-left: 30px;
 }
 .download-mobile__link {
+    margin-top: 2px;
     background:#00AFDB;
     width: 188px;
     height: 50px;
@@ -341,21 +388,23 @@ header {
 .footer {
     height: 184px;
     background: #000000;
-
+}
+.footer-nav {
     display: flex;
     justify-content: space-between;
 }
 .footer-items {
     display: flex;
-    padding: 75px 0px 91px 160px;
+    padding: 74px 0px 91px 160px;
 }
 .footer-item {
-    padding: 0px 20px;
+    padding: 0px 20px 0px 22px;
+    /* padding: 0px 20px;
     border-left: 1px solid #4E4E4E;
-    border-right: 1px solid #4E4E4E;
+    border-right: 1px solid #4E4E4E; */
 }
 #footer-item__first {
-    padding-right: 19px;
+    padding-right: 20px;
 }
 #footer-item__last {
     padding-left: 19px;
@@ -366,6 +415,9 @@ header {
 .footer-logo {
     margin: 60px 0px 70px 0px;
 }
+.footer-logo img {
+    margin-right: 64px;
+}
 .footer-author {
     color:  #818181;
     margin: 73px 160px 91px 0px;
@@ -373,3 +425,9 @@ header {
 .footer-author:hover {
     color: #fff;
 }
+/* .footer-border-first {
+    position: absolute;
+}
+.footer-border-second {
+    position: absolute;
+} */
