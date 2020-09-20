@@ -55,7 +55,7 @@ ul, li, p, button, img  {
     margin: 0;
 }
 strong {
-    font-weight: 500;
+    font-weight: 700;
 }
 .container {
     max-width: 1600px;
@@ -244,6 +244,9 @@ header {
 .slider-arrow {
     cursor: pointer;
 }
+.slider-arrow:hover {
+    opacity: 0.5;
+}
 .our-community__slider-items {
     display: flex;
 }
@@ -288,11 +291,11 @@ header {
     background-image: url(assets/bg-images/bg-image2.png);
 
     text-align: center;
-    height: 598px;
+    height: 524px;
 }
 .subscribe-title {
     color: #fff;
-    padding: 217px 0px 30px;
+    padding: 200px 0px 30px;
 }
 .subscribe-form {
     display: flex;
@@ -332,7 +335,7 @@ header {
 /* download */
 
 .download {
-    height: 468px;
+    height: 464px;
     text-align: center;
     background-color: #F5F6F7;
 }
