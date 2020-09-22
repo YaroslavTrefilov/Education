@@ -1,149 +1,88 @@
-class Calculator {
-  constructor(previousOperandTextElement, currentOperandTextElement) {
-    this.previousOperandTextElement = previousOperandTextElement;
-    this.currentOperandTextElement = currentOperandTextElement;
-    this.readyToReset = false;
-    this.clear();
-  }
+const operandArrayEl = document.getElementById('operandArray');
+const currentOperandEl = document.getElementById('currentOperand');
 
-  clear() {
-    this.currentOperand = '';
-    this.previousOperand = '';
-    this.operation = undefined;
-  }
+currentOperandEl.innerHTML = '0';
 
-  delete() {
-    this.currentOperand = this.currentOperand.toString().slice(0, -1);
-  }
+let operandArray = [];
+let currentOperand = '0';
 
-  appendNumber(number) {
-    if (number === '.' && this.currentOperand.includes('.')) return;
-    this.currentOperand = this.currentOperand.toString() + number.toString();
-  }
-
-  chooseOperation(operation) {
-    if (this.currentOperand === '') return;
-    if (this.previousOperand !== '' && this.previousOperand !== '') {
-      this.compute();
-    }
-    this.operation = operation;
-    this.previousOperand = this.currentOperand;
-    this.currentOperand = '';
-  }
-
-  compute() {
-    let computation;
-    const prev = parseFloat(this.previousOperand);
-    const current = parseFloat(this.currentOperand);
-    if (isNaN(prev) || isNaN(current)) return;
-    if (this.operation == '+') {
-      computation = prev + current;
-    } else if (this.operation == '*') {
-      computation = prev * current;
-    } else if (this.operation == 'y√x') {
-      computation = prev ** (1 / current);
-    } else if (this.operation == 'xy') {
-      computation = prev ** current;
-    } else if (this.operation == '÷') {
-      computation = prev / current;
-    } else if (this.operation == '-') {
-      if (current !== '') {
-        computation = prev - current;
-      } 
-      // else { 
-      //   current = -current;
-      // }
-    }
-
-    this.readyToReset = true;
-    this.currentOperand = ( Math.floor(computation * 1000) / 1000 );
-    this.operation = undefined;
-    this.previousOperand = '';
-  }
-
-
-
-
-  getDisplayNumber(number) {
-    const stringNumber = number.toString()
-    const integerDigits = parseFloat(stringNumber.split('.')[0])
-    const decimalDigits = stringNumber.split('.')[1]
-    let integerDisplay
-    if (isNaN(integerDigits)) {
-      integerDisplay = ''
-    } else {
-      integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
-    }
-    if (decimalDigits != null) {
-      return `${integerDisplay}.${decimalDigits}`
-    } else {
-      return integerDisplay
-    }
-  }
-
-  updateDisplay() {
-    this.currentOperandTextElement.innerText =
-      this.getDisplayNumber(this.currentOperand)
-    if (this.operation != null) {
-      this.previousOperandTextElement.innerText =
-        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
-    } 
-    //
-    // else if (this.operation == '-' && current == '') {
-    //   `- ${this.operation}`
-    // }
-    //
-    else {
-      this.previousOperandTextElement.innerText = ''
-    }
-  }
+const del = () => {
+  currentOperand = currentOperand.slice(0, -1);
+  updateView();
 }
 
+const clearAll = () => {
+  operandArrayEl.innerHTML = '';
+  currentOperandEl.innerHTML = '0';
+  currentOperand = '0';
+  operandArray = [];
+}
 
+const addOperand = (operand) => {
+  operandArray.push(currentOperand);
+  currentOperand = '0';
+  operandArray.push(operand);
+  updateView();
+}
 
+const addNumber = (number) => {
+  if (currentOperand === '0') {
+    currentOperand = number.toString();
+  } else {
+    currentOperand += number.toString();
+  }
+  updateView();
+}
 
-const numberButtons = document.querySelectorAll('[data-number]');
-const operationButtons = document.querySelectorAll('[data-operation]');
-const equalsButton = document.querySelector('[data-equals]');
-const deleteButton = document.querySelector('[data-delete]');
-const allClearButton = document.querySelector('[data-all-clear]');
-const previousOperandTextElement = document.querySelector('[data-previous-operand]');
-const currentOperandTextElement = document.querySelector('[data-current-operand]');
+const addDot = () => {
+  if (currentOperand.indexOf('.') < 0) {
+    currentOperand += '.';
+  }
+  updateView();
+}
 
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+const checkResult = () => {
+  operandArray.push(currentOperand);
+  let queue = createQueue();
+  let result = [];
 
-numberButtons.forEach(button => {
-  button.addEventListener("click", () => {
+  queue.forEach((step, index) => {
+    let operator = operandArray[step];
+    switch (operator) {
+      case '+':
+        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
+        break;
+      case '-':
+        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
+        break;
+      case '*':
+        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
+        break;
+      case '/':
+        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
+        break;
+      default:
+        break;
+    }
+  })
+  // setResult();
+  console.log(result);
+}
 
-      if(calculator.previousOperand === "" &&
-      calculator.currentOperand !== "" &&
-  calculator.readyToReset) {
-          calculator.currentOperand = "";
-          calculator.readyToReset = false;
+const createQueue = () => {
+  const defaultQueue = ['^', '√', '*', '/', '+', '-'];
+  const queue = [];
+  defaultQueue.forEach((operand) => {
+    operandArray.forEach((value, index) => {
+      if (operand === value) {
+        queue.push(index);
       }
-      calculator.appendNumber(button.innerText)
-      calculator.updateDisplay();
+    })
   })
-})
+  return queue;
+}
 
-operationButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    calculator.chooseOperation(button.innerText);
-    calculator.updateDisplay();
-  })
-})
-
-equalsButton.addEventListener('click', button => {
-  calculator.compute();
-  calculator.updateDisplay();
-})
-
-allClearButton.addEventListener('click', button => {
-  calculator.clear();
-  calculator.updateDisplay();
-})
-
-deleteButton.addEventListener('click', button => {
-  calculator.delete();
-  calculator.updateDisplay();
-})
+const updateView = () => {
+  currentOperandEl.innerHTML = currentOperand;
+  operandArrayEl.innerHTML = operandArray.join('');
+}
