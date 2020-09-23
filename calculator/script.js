@@ -26,7 +26,7 @@ const addOperand = (operand) => {
 }
 
 const addNumber = (number) => {
-  if (currentOperand === '0') {
+  if (currentOperand === '0' || currentOperand === 0) {
     currentOperand = number.toString();
   } else {
     currentOperand += number.toString();
@@ -46,9 +46,8 @@ const checkResult = () => {
   let queue = createQueue(operandArray);
   let copy = [...operandArray];
   recursiveCalc(0, copy, queue)
-  currentOperand = copy;
+  currentOperand = copy[0];
   setResult();
-  console.log(copy, operandArray);
 }
 
 const recursiveCalc = (acc = 0, array, queue) => {
