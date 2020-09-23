@@ -43,18 +43,18 @@ const addDot = () => {
 
 const checkResult = () => {
   operandArray.push(currentOperand);
-  let queue = createQueue(operandArray, ['*', '/']);
-  if (queue) {
-    currentOperand = recursiveCalc(0, operandArray, queue);
-  } else {
-    currentOperand = recursiveCalc(0, operandArray, createQueue(operandArray, ['+', '-']));
-  }
+  let queue = createQueue(operandArray);
+  let copy = [...operandArray];
+  recursiveCalc(0, copy, queue)
+  currentOperand = copy;
+  setResult();
+  console.log(copy, operandArray);
 }
 
 const recursiveCalc = (acc = 0, array, queue) => {
-  if (array.length > 3) {
-    let localArr = array;
-    queue.forEach((step, index) => {
+  if (queue) {
+    let localArr = [];
+    let step = queue[0];
       let operand = array[step];
       let result = 0;
       switch (operand) {
@@ -72,31 +72,11 @@ const recursiveCalc = (acc = 0, array, queue) => {
           break;
       }
       array[step+1] = result;
-      localArr = [].concat(array.splice(0,step-1), array.splice(step+1, array.length));
-      debugger;
-    })
-    console.log(localArr);
+      array.splice(step-1, 2);
+      localArr = array;
     recursiveCalc(acc, localArr, createQueue(localArr));
-  } else if (array.length === 3) {
-    let operand = array[1];
-    let result = 0;
-    switch (operand) {
-      case '*':
-        result = +array[0] * +array[2];
-        break;
-      case '/':
-        result = +array[0] / +array[2];
-        break;
-      case '+':
-        result = +array[0] + +array[2];
-        break;
-      case '-':
-        result = +array[0] - +array[2];
-        break;
-    }
-    return result;
   } else {
-    return acc;
+    return;
   }
 }
 
@@ -118,4 +98,10 @@ const createQueue = (array, operandArray = ['^', '√', '*', '/', '+', '-']) => 
 const updateView = () => {
   currentOperandEl.innerHTML = currentOperand;
   operandArrayEl.innerHTML = operandArray.join('');
+}
+
+const setResult = () => {
+  operandArrayEl.innerHTML = '';
+  currentOperandEl.innerHTML = currentOperand;
+  operandArray = [];
 }
