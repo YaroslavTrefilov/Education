@@ -24,6 +24,11 @@ const invertCurrentNumber = () => {
 }
 
 const addOperand = (operand) => {
+  if (currentOperand.includes('Error')) {
+    currentOperand = '0';
+    updateView();
+    return;
+  }
   operandArray.push(currentOperand);
   currentOperand = "0";
   operandArray.push(operand);
@@ -31,6 +36,11 @@ const addOperand = (operand) => {
 };
 
 const addNumber = (number) => {
+  if (currentOperand.includes('Error')) {
+    currentOperand = '0';
+    updateView();
+    return;
+  }
   if (currentOperand === "0" || currentOperand === 0) {
     currentOperand = number.toString();
   } else {
@@ -40,6 +50,11 @@ const addNumber = (number) => {
 };
 
 const addDot = () => {
+  if (currentOperand.includes('Error')) {
+    currentOperand = '0.';
+    updateView();
+    return;
+  }
   if (currentOperand.indexOf(".") < 0) {
     currentOperand += ".";
   }
@@ -51,9 +66,14 @@ const checkResult = () => {
   let queue = createQueue(operandArray);
   let copy = [...operandArray];
   recursiveCalc(0, copy, queue);
-  if (!currentOperand.includes("Error")) {
-    currentOperand = copy[0];
+  if (typeof currentOperand === 'string') {
+    if (!currentOperand.includes("Error")) {
+      currentOperand = copy[0];
+    }
+  }else {
+    currentOperand = currentOperand.toString();
   }
+
   setResult();
 };
 
@@ -94,7 +114,7 @@ const recursiveCalc = (acc = 0, array, queue) => {
       return;
     }
     result = Math.floor(result * 1000) / 1000 ;
-    array[step + 1] = result;
+    array[step + 1] = result.toString();
     array.splice(step - 1, 2);
     localArr = array;
     recursiveCalc(acc, localArr, createQueue(localArr));
