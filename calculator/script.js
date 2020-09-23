@@ -18,12 +18,12 @@ const clearAll = () => {
   operandArray = [];
 };
 
+const invertCurrentNumber = () => {
+  currentOperand = parseFloat(currentOperand) * -1;
+  updateView();
+}
+
 const addOperand = (operand) => {
-  // if (operand === '-' && operandArray.length > 0) {
-  //   currentOperand *= -1 ;
-  // } else {
-  //   currentOperand = '0';
-  // }
   operandArray.push(currentOperand);
   currentOperand = "0";
   operandArray.push(operand);
@@ -51,7 +51,9 @@ const checkResult = () => {
   let queue = createQueue(operandArray);
   let copy = [...operandArray];
   recursiveCalc(0, copy, queue);
-  currentOperand = copy[0];
+  if (!currentOperand.includes("Error")) {
+    currentOperand = copy[0];
+  }
   setResult();
 };
 
@@ -77,10 +79,10 @@ const recursiveCalc = (acc = 0, array, queue) => {
         result = firstOperand - secondOperand;
         break;
       case "√":
-        if (secondOperand >= 0) {  
-          result = secondOperand ** (1 /firstOperand);
+        if (secondOperand < 0 || secondOperand === 0) {
+          result = 'err';
         } else {
-          result = "err";
+          result = secondOperand ** (1 / firstOperand);
         }
         break;
       case "^":
@@ -88,8 +90,7 @@ const recursiveCalc = (acc = 0, array, queue) => {
         break;
     }
     if (result === 'err') {
-      clearAll();
-      currentOperandEl.innerHTML = 'Error: negative sqrt number';
+      currentOperand = 'Error: negative sqrt number';
       return;
     }
     result = Math.floor(result * 1000) / 1000 ;
