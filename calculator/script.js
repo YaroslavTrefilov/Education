@@ -19,7 +19,7 @@ const clearAll = () => {
 };
 
 const invertCurrentNumber = () => {
-  currentOperand = parseFloat(currentOperand) * -1;
+  currentOperand = (parseFloat(currentOperand) * -1).toString();
   updateView();
 }
 
