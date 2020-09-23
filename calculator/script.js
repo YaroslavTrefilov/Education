@@ -43,42 +43,75 @@ const addDot = () => {
 
 const checkResult = () => {
   operandArray.push(currentOperand);
-  let queue = createQueue();
-  let result = [];
-
-  queue.forEach((step, index) => {
-    let operator = operandArray[step];
-    switch (operator) {
-      case '+':
-        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
-        break;
-      case '-':
-        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
-        break;
-      case '*':
-        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
-        break;
-      case '/':
-        result.push(`${operandArray[step-1] + operator + operandArray[step+1]}`);
-        break;
-      default:
-        break;
-    }
-  })
-  // setResult();
-  console.log(result);
+  let queue = createQueue(operandArray, ['*', '/']);
+  if (queue) {
+    currentOperand = recursiveCalc(0, operandArray, queue);
+  } else {
+    currentOperand = recursiveCalc(0, operandArray, createQueue(operandArray, ['+', '-']));
+  }
 }
 
-const createQueue = () => {
-  const defaultQueue = ['^', '√', '*', '/', '+', '-'];
+const recursiveCalc = (acc = 0, array, queue) => {
+  if (array.length > 3) {
+    let localArr = array;
+    queue.forEach((step, index) => {
+      let operand = array[step];
+      let result = 0;
+      switch (operand) {
+        case '*':
+          result = +array[step-1] * +array[step+1];
+          break;
+        case '/':
+          result = +array[step-1] / +array[step+1];
+          break;
+        case '+':
+          result = +array[step-1] + +array[step+1];
+          break;
+        case '-':
+          result = +array[step-1] - +array[step+1];
+          break;
+      }
+      array[step+1] = result;
+      localArr = [].concat(array.splice(0,step-1), array.splice(step+1, array.length));
+      debugger;
+    })
+    console.log(localArr);
+    recursiveCalc(acc, localArr, createQueue(localArr));
+  } else if (array.length === 3) {
+    let operand = array[1];
+    let result = 0;
+    switch (operand) {
+      case '*':
+        result = +array[0] * +array[2];
+        break;
+      case '/':
+        result = +array[0] / +array[2];
+        break;
+      case '+':
+        result = +array[0] + +array[2];
+        break;
+      case '-':
+        result = +array[0] - +array[2];
+        break;
+    }
+    return result;
+  } else {
+    return acc;
+  }
+}
+
+const createQueue = (array, operandArray = ['^', '√', '*', '/', '+', '-']) => {
   const queue = [];
-  defaultQueue.forEach((operand) => {
-    operandArray.forEach((value, index) => {
+  operandArray.forEach((operand) => {
+    array.forEach((value, index) => {
       if (operand === value) {
         queue.push(index);
       }
     })
   })
+  if (queue.length < 1) {
+    return null;
+  }
   return queue;
 }
 
