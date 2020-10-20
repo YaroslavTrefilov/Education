@@ -118,6 +118,34 @@ function setBgGreet() {
     document.body.style.color = 'white';
   }
 }
+const changeBg = () => {
+  // сделать разные базы для времени дня и прокрутку на цедый день
+  const base = '/momentum/assets/images/day/';
+  const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg'];
+  let i = 0;
+
+  const viewBgImage = (data) => {
+    const body = document.querySelector('body');
+    const src = data;
+    const img = document.createElement('img');
+    img.src = src;
+    img.onload = () => {      
+      body.style.backgroundImage = `url(${src})`;
+    }; 
+  };
+  const getImage = () => {
+    const index = i % images.length;
+    const imageSrc = base + images[index];
+    viewBgImage(imageSrc);
+    i++;
+    btn.disabled = true;
+    setTimeout(function() { btn.disabled = false }, 1000);
+    };
+  const btn = document.querySelector('.btn-bg');
+  btn.addEventListener('click', getImage); 
+};
+
+changeBg();
 
 showTime();
 setBgGreet();
