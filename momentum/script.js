@@ -158,10 +158,10 @@ const setName = (e) => {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
       localStorage.setItem('name', e.target.value);
-      localStorage.setItem('name', name.value)
+      name.blur();
     }
   } else {
-    localStorage.setItem('name', name.value)
+    localStorage.setItem('name', e.target.value);
   }
 };
 const clearName = (event) => {
@@ -195,10 +195,10 @@ const setFocus = (e) => {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
       localStorage.setItem('focus', e.target.value);
-      localStorage.setItem('focus', focus.value)
+      focus.blur();
     }
   } else {
-    localStorage.setItem('focus', focus.value)
+    localStorage.setItem('focus', e.target.value);
   }
 };
 const clearFocus = (event) => {
@@ -221,6 +221,7 @@ window.addEventListener('click', resetName);
 name.addEventListener('click', clearName);
 name.addEventListener('change', setName);
 name.addEventListener('keypress', setName)
+
 
 window.addEventListener('click', resetFocus);
 focus.addEventListener('click', clearFocus);
