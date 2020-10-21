@@ -119,7 +119,7 @@ function setBgGreet() {
   }
 }
 const changeBg = () => {
-  // сделать разные базы для времени дня и прокрутку на цедый день
+  // сделать разные базы для времени дня,сет интервал на час и прокрутку на цедый день
   const base = '/momentum/assets/images/day/';
   const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg'];
   let i = 0;
@@ -145,7 +145,91 @@ const changeBg = () => {
   btn.addEventListener('click', getImage); 
 };
 
-changeBg();
+function getName() {
+  if ((localStorage.getItem('name') === null)||
+  (localStorage.getItem('name') === '')) {
+    name.value = '[Enter Name]';
+  } else {
+    name.value = localStorage.getItem('name');
+  }
+};
+const setName = (e) => {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('name', e.target.value);
+      localStorage.setItem('name', name.value)
+    }
+  } else {
+    localStorage.setItem('name', name.value)
+  }
+};
+const clearName = (event) => {
+  if (event.target === name) {
+    name.value = '';
+    localStorage.setItem('name', name.value)
+  }
+};
+const resetName = (event) => {
+  if (event.target !== name) {
+    if ((name.value === null)||
+    (name.value === '')) {
+      name.value = '[Enter Name]';
+    }
+  } else {
+    name.value = localStorage.getItem('name');
+  }
+}
 
+function getFocus() {
+  if ((localStorage.getItem('focus') === null) ||
+  (localStorage.getItem('focus') === '')) {
+    focus.value = '[Enter Focus]';
+  } else {
+    focus.value = localStorage.getItem('focus');
+  }
+}
+// 
+const setFocus = (e) => {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('focus', e.target.value);
+      localStorage.setItem('focus', focus.value)
+    }
+  } else {
+    localStorage.setItem('focus', focus.value)
+  }
+};
+const clearFocus = (event) => {
+  if (event.target === focus) {
+    focus.value = '';
+    localStorage.setItem('focus', focus.value)
+  }
+};
+const resetFocus = (event) => {
+  if (event.target !== focus) {
+    if ((focus.value === null)||
+    (focus.value === '')) {
+      focus.value = '[Enter Focus]';
+    }
+  } else {
+    focus.value = localStorage.getItem('focus');
+  }
+}
+window.addEventListener('click', resetName);
+name.addEventListener('click', clearName);
+name.addEventListener('change', setName);
+name.addEventListener('keypress', setName)
+
+window.addEventListener('click', resetFocus);
+focus.addEventListener('click', clearFocus);
+focus.addEventListener('change', setFocus);
+focus.addEventListener('keypress', setFocus)
+
+
+getFocus();
+getName();
+changeBg();
 showTime();
 setBgGreet();

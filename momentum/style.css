@@ -28,12 +28,27 @@ body {
   filter: grayscale(1);
   margin: 10px;
 }
-
+.day-info {
+  font-size: 3rem;
+}
 .time {
   font-size: 8rem;
 }
-.day-info {
-  font-size: 3rem;
+.name, .focus {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  font-family: 'Quicksand', sans-serif;
+  color: #000000;
+  font-size: 2rem;
+  max-width: 220px;
+}
+.focus {
+  max-width: 400px;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
 }
 
 h1 {

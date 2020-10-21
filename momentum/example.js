@@ -99,6 +99,7 @@ function setFocus(e) {
   } else {
     localStorage.setItem('focus', e.target.innerText);
   }
+  
 }
 
 name.addEventListener('keypress', setName);
