@@ -60,6 +60,53 @@ h2 {
   opacity: 0.8;
 }
 
+.quote-wrapper {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr; */
+  grid-template-areas: "b q";
+  margin: 10px;
+}
+.btn-quote {
+  font: 1.2rem Georgia, serif;
+
+  border: 2px solid #cdcdcd;
+  padding: 4px;
+  /* border-radius: 50%; */
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* filter: grayscale(.8); */
+  margin: 10px;
+
+  grid-area: b;
+  /* height: 55px; */
+}
+.btn-quote:hover {
+  color: #fff;
+  background-color: #000;
+  opacity: 0.8;
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+.quote {
+  font: 1.2rem Georgia, serif;
+  margin: 0;
+  background: #eee;
+  padding: 1em;
+  border-radius: 1em;
+
+  grid-area: q;
+}
+.quote figcaption,
+.quote blockquote {
+  margin: 1em;
+}
+.quote figcaption {
+  text-align: right;
+}
+
+
+
+
 @media (max-width: 700px) {
   .time {
     font-size: 6rem;
