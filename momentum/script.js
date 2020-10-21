@@ -198,7 +198,6 @@ function getFocus() {
 // 
 const setFocus = (e) => {
   if (e.type === 'keypress') {
-    // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
       if ((focus.value === null)||
       (focus.value === '')) {
@@ -256,12 +255,6 @@ const quote = () => {
   btn.addEventListener('click', getQuote);
 };
 
-// 
-const weatherIcon = document.querySelector('.weather-icon');
-const temperature = document.querySelector('.temperature');
-const weatherDescription = document.querySelector('.weather-description');
-const city = document.querySelector('.city');
-
 const getWeatherForCity = () => {
   const weatherIcon = document.querySelector('.weather-icon');
   const temperature = document.querySelector('.temperature');
@@ -293,9 +286,11 @@ const getWeatherForCity = () => {
   document.addEventListener('DOMContentLoaded', getWeather);
   city.addEventListener('keypress', setCity);
 };
-getWeatherForCity();
-// 
 
+
+
+
+getWeatherForCity();
 quote();
 getFocus();
 getName();

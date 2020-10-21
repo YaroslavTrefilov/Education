@@ -9,36 +9,51 @@
   <title>momentum</title>
 </head>
 <body>
-  <!-- weather -->
-  <div class="city" contenteditable="true">Izhevsk</div>
-  <i class="weather-icon owf"></i>
-  <div class="temperature"></div>
-  <div class="weather-description"></div>
-  <!--  -->
-
-  <button class="btn-bg">Change Background</button>
-
-  <p class="day-info"></p>
-  <time class="time"></time>
-  <h1>
-    <span class="greeting"></span>
-    <input class="name" value="">
-  </h1>
-  <h2>What Is Your Focus For Today?</h2>
-  <input class="focus" value="">
-
-
-  <div class="quote-wrapper">
-    <button class="btn-quote">Change<br>quote</button>
-    <figure class="quote">
-      <blockquote>
-        You were not born a winner, and you were not born a loser. You are what you make yourself be.
-      </blockquote>
-      <figcaption> 
-        Lou Holtz
-      </figcaption>
-    </figure>
-  </div>
+  <div class="container">
+    <header class="header">
+      <button class="btn-bg">Change Background</button>
+      <div class="weather-card">
+        <div class="city" contenteditable="true">Izhevsk</div>
+        <!-- Temporarly -->
+        <div class="wather-info">
+          <i class="weather-icon owf"></i>
+          <div class="temperature"></div>
+          <div class="weather-description"></div>
+        </div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="day-wrapper">
+        <p class="day-info"></p>
+        <time class="time"></time>
+      </div>
+      <div class="person">
+        <div class="person-left">
+          <h1 class="person-greet">
+              <span class="greeting"></span>
+              <input class="name" value="">
+          </h1>
+          <div class="person-focus">
+            <h2>What Is Your Focus For Today?</h2>
+            <input class="focus" value="">
+          </div>
+        </div>
+        <div class="person-rigth">
+          <button class="btn-quote">Change<br>quote</button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <figure class="quote">
+        <blockquote>
+          You were not born a winner, and you were not born a loser. You are what you make yourself be.
+        </blockquote>
+        <figcaption> 
+          Lou Holtz
+        </figcaption>
+      </figure>
+    </footer>
+</div>
   <script src="script.js"></script>
 </body>
 </html>
