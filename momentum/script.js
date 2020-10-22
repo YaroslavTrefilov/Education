@@ -89,14 +89,68 @@ function addZero(n) {
   return (parseInt(n, 10) < 10 ? '0' : '') + n;
 }
 
-
-function setBgGreet() {
+// 
+const setBg = () => {
   let today = new Date(),
     hour = today.getHours();
+  const base = `../momentum/assets/images/bg/`;
+  const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg', '22.jpg', '23.jpg', '24.jpg'];
+
+  let imagesSrcList = [];
+
+  for (let i = 0; i < images.length; i++) {
+    imagesSrcList.push(imageSrc = base + images[i])
+  }
+
+  const viewBgImage = (index, increment = false) => {
+    const body = document.querySelector('body');
+    const src = imagesSrcList[index];
+    const img = document.createElement('img');
+    img.src = src;
+    img.onload = () => {      
+      body.style.backgroundImage = `url(${src})`;
+    };
+    setInterval(() => {
+
+      index++;
+      const src = imagesSrcList[index];
+      const img = document.createElement('img');
+      img.src = src;
+      body.style.backgroundImage = `url(${src})`;
+
+      index = (index + imagesSrcList.length) % imagesSrcList.length;
+    }, 3600000);
+  };
+
   if ((hour <= 12) && (hour >= 6)) {
-    // Morning
-    document.body.style.backgroundImage =
-      "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
+    viewBgImage(0);
+  } else if ((hour <= 18) && (hour > 12)) {
+    viewBgImage(6);
+  } else  if ((hour > 18) && (hour <= 24)){
+    viewBgImage(12);
+  }
+  else  if ((hour > 24) && (hour < 6)){
+    viewBgImage(18);
+  }
+
+
+
+// доделать кнопку переключения фона
+  const getImage = () => {
+    const body = document.querySelector('body');
+    let currentBgImage =  body.style.backgroundImage;
+    let currentBgInArray = imagesSrcList.find(image => image = currentBgImage);
+    console.log(imagesSrcList);
+
+    
+
+    btn.disabled = true;
+    setTimeout(function() { btn.disabled = false }, 1000);
+  };
+
+
+  if ((hour <= 12) && (hour >= 6)) {
+    document.body.style.backgroundImage = "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
     greeting.textContent = 'Good Morning, ';
   } else if ((hour <= 18) && (hour > 12)) {
     // Afternoon
@@ -108,42 +162,22 @@ function setBgGreet() {
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/924T2Wv/night.jpg')";
     greeting.textContent = 'Good Evening, ';
-    document.body.style.color = 'white';
+    // document.body.style.color = 'white';
   }
   else  if ((hour > 24) && (hour < 6)){
-    // Nigth
-    document.body.style.backgroundImage =
-      "url('https://i.ibb.co/924T2Wv/night.jpg')";
-    greeting.textContent = 'Good Nigth, ';
-    document.body.style.color = 'white';
+  // Nigth
+  document.body.style.backgroundImage =
+    "url('https://i.ibb.co/924T2Wv/night.jpg')";
+  greeting.textContent = 'Good Nigth, ';
+  // document.body.style.color = 'white';
   }
-}
-const changeBg = () => {
-  // сделать разные базы для времени дня,сет интервал на час и прокрутку на цедый день
-  const base = '/momentum/assets/images/day/';
-  const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg'];
-  let i = 0;
-
-  const viewBgImage = (data) => {
-    const body = document.querySelector('body');
-    const src = data;
-    const img = document.createElement('img');
-    img.src = src;
-    img.onload = () => {      
-      body.style.backgroundImage = `url(${src})`;
-    }; 
-  };
-  const getImage = () => {
-    const index = i % images.length;
-    const imageSrc = base + images[index];
-    viewBgImage(imageSrc);
-    i++;
-    btn.disabled = true;
-    setTimeout(function() { btn.disabled = false }, 1000);
-    };
   const btn = document.querySelector('.btn-bg');
-  btn.addEventListener('click', getImage); 
+  btn.addEventListener('click', getImage);
 };
+
+
+
+//
 
 function getName() {
   if ((localStorage.getItem('name') === null)||
@@ -290,10 +324,10 @@ const getWeatherForCity = () => {
 
 
 
-getWeatherForCity();
-quote();
+// getWeatherForCity();
+// quote();
 getFocus();
 getName();
-changeBg();
 showTime();
-setBgGreet();
+
+setBg();
