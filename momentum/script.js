@@ -102,7 +102,7 @@ const setBg = () => {
     imagesSrcList.push(imageSrc = base + images[i])
   }
 
-  const viewBgImage = (index, increment = false) => {
+  const viewBgImage = index => {
     const body = document.querySelector('body');
     const src = imagesSrcList[index];
     const img = document.createElement('img');
@@ -129,48 +129,83 @@ const setBg = () => {
   } else  if ((hour > 18) && (hour <= 24)){
     viewBgImage(12);
   }
-  else  if ((hour > 24) && (hour < 6)){
+  else  if ((hour < 24) && (hour < 6)){
     viewBgImage(18);
   }
-
 
 
 // доделать кнопку переключения фона
   const getImage = () => {
     const body = document.querySelector('body');
-    let currentBgImage =  body.style.backgroundImage;
-    let currentBgInArray = imagesSrcList.find(image => image = currentBgImage);
-    console.log(imagesSrcList);
 
-    
+
+
+    let currentBgImage =  body.style.backgroundImage;
+    currentBgImage = currentBgImage.substring((currentBgImage.length - 8), currentBgImage.length - 2)
+    let currentBgIndex = imagesSrcList.findIndex((element) => {
+      let isSuitable = element.includes(currentBgImage);
+      if (isSuitable ) {
+        return element
+      }
+    });
+    let i = currentBgIndex;
+    console.log(i);
+    i++;
+    if (i === imagesSrcList.length) {
+      i = 0;
+    }
+    let src = imagesSrcList[i];
+    const img = document.createElement('img');
+    img.src = src;     
+    body.style.backgroundImage = `url(${src})`;
+    if ((i !== 0)&&(i < 11)) {
+      document.body.style.color = 'black';
+      colorInputs.forEach((element) => {
+        element.style.color = 'black';
+      });
+    } else {
+      document.body.style.color = 'white';
+      colorInputs.forEach((element) => {
+        element.style.color = 'white';
+      });
+    }
+
 
     btn.disabled = true;
     setTimeout(function() { btn.disabled = false }, 1000);
   };
 
+  const colorInputs = document.querySelectorAll('input');
 
   if ((hour <= 12) && (hour >= 6)) {
     document.body.style.backgroundImage = "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
-    greeting.textContent = 'Good Morning, ';
+    greeting.innerHTML = 'Good Morning, ';
   } else if ((hour <= 18) && (hour > 12)) {
     // Afternoon
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/3mThcXc/afternoon.jpg')";
-    greeting.textContent = 'Good Afternoon, ';
+    greeting.innerHTML = 'Good Afternoon, ';
   } else  if ((hour > 18) && (hour <= 24)){
     // Evening
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/924T2Wv/night.jpg')";
-    greeting.textContent = 'Good Evening, ';
-    // document.body.style.color = 'white';
+    greeting.innerHTML = 'Good Evening, ';
+    document.body.style.color = 'white';
+    colorInputs.forEach((element) => {
+      element.style.color = 'white';
+    });
   }
-  else  if ((hour > 24) && (hour < 6)){
+  else  if ((hour < 24) && (hour < 6)){
   // Nigth
   document.body.style.backgroundImage =
     "url('https://i.ibb.co/924T2Wv/night.jpg')";
-  greeting.textContent = 'Good Nigth, ';
-  // document.body.style.color = 'white';
-  }
+  greeting.innerHTML = 'Good Nigth, ';
+  document.body.style.color = 'white';
+  };
+  colorInputs.forEach((element) => {
+    element.style.color = 'white';
+  });
+
   const btn = document.querySelector('.btn-bg');
   btn.addEventListener('click', getImage);
 };
@@ -324,8 +359,8 @@ const getWeatherForCity = () => {
 
 
 
-// getWeatherForCity();
-// quote();
+getWeatherForCity();
+quote();
 getFocus();
 getName();
 showTime();
