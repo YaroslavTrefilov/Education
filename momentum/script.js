@@ -111,7 +111,7 @@ const setBg = () => {
       body.style.backgroundImage = `url(${src})`;
     };
     setInterval(() => {
-
+      if (today.getMinutes() === 0 ) {
       index++;
       const src = imagesSrcList[index];
       const img = document.createElement('img');
@@ -119,7 +119,8 @@ const setBg = () => {
       body.style.backgroundImage = `url(${src})`;
 
       index = (index + imagesSrcList.length) % imagesSrcList.length;
-    }, 3600000);
+      }
+    }, 60000);
   };
 
   if ((hour <= 12) && (hour >= 6)) {
@@ -149,7 +150,6 @@ const setBg = () => {
       }
     });
     let i = currentBgIndex;
-    console.log(i);
     i++;
     if (i === imagesSrcList.length) {
       i = 0;
@@ -334,7 +334,7 @@ const getWeatherForCity = () => {
     if (city.innerHTML !== localStorage.getItem(city)) {
       city.innerHTML = localStorage.getItem('city');
     }
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=68acbc07ccfa8d615fd6c1385a793700&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
     
@@ -359,8 +359,8 @@ const getWeatherForCity = () => {
 
 
 
-// getWeatherForCity();
-// quote();
+getWeatherForCity();
+quote();
 getFocus();
 getName();
 showTime();
