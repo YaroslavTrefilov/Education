@@ -93,7 +93,7 @@ function addZero(n) {
 const setBg = () => {
   let today = new Date(),
     hour = today.getHours();
-  const base = `../momentum/assets/images/bg/`;
+  const base = `../assets/images/bg/`;
   const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg', '22.jpg', '23.jpg', '24.jpg'];
 
   let imagesSrcList = [];
@@ -177,15 +177,15 @@ const setBg = () => {
 
   const colorInputs = document.querySelectorAll('input');
 
-  if ((hour <= 12) && (hour >= 6)) {
+  if ((hour < 12) && (hour >= 6)) {
     document.body.style.backgroundImage = "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
     greeting.innerHTML = 'Good Morning, ';
-  } else if ((hour <= 18) && (hour > 12)) {
+  } else if ((hour < 18) && (hour > 12)) {
     // Afternoon
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/3mThcXc/afternoon.jpg')";
     greeting.innerHTML = 'Good Afternoon, ';
-  } else  if ((hour > 18) && (hour <= 24)){
+  } else  if ((hour >= 18) && (hour <= 24)){
     // Evening
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/924T2Wv/night.jpg')";
@@ -195,7 +195,7 @@ const setBg = () => {
       element.style.color = 'white';
     });
   }
-  else  if ((hour < 24) && (hour < 6)){
+  else  if ((hour <= 24) && (hour < 6)){
   // Nigth
   document.body.style.backgroundImage =
     "url('https://i.ibb.co/924T2Wv/night.jpg')";
@@ -359,8 +359,8 @@ const getWeatherForCity = () => {
 
 
 
-getWeatherForCity();
-quote();
+// getWeatherForCity();
+// quote();
 getFocus();
 getName();
 showTime();
